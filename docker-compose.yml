@@ -1,0 +1,11 @@
+
+  PostgreSQL:
+    restart: always
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=220zxW34mkl252
+      - POSTGRES_DB=test
+
