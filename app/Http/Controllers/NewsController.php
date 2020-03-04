@@ -6,7 +6,7 @@ use App\Http\Resources\AuthorResource;
 use App\Http\Resources\NewsCollection;
 use App\Http\Resources\NewsResource;
 use App\News;
-use App\Services\NewsServices;
+use App\Services\NewsService;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -19,7 +19,7 @@ class NewsController extends Controller
      */
     public function __construct()
     {
-        $this->newsService = new NewsServices;
+        $this->newsService = new NewsService;
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +30,6 @@ class NewsController extends Controller
     {
         $result = $this->newsService->filterNews($request);
         return new NewsCollection(new NewsResource($result));
-
     }
 
     /**

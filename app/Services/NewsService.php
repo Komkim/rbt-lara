@@ -6,14 +6,11 @@ namespace App\Services;
 use App\News;
 
 /**
- * Class NewsServices
+ * Class NewsService
  * @package App\Services
  */
-class NewsServices{
+class NewsService{
 
-    /**
-     * ContractService constructor.
-     */
     public function __construct()
     {
 
@@ -29,12 +26,15 @@ class NewsServices{
         ]);
     }
 
+
+
     /**
      * @param Request $filters
      * @return LengthAwarePaginator
      */
     public function filterNews(Request $filters)
     {
+        return News::query();
         $page = $filters->page ?: 1;
         $limit = $filters->limit ?: 20;
         $query = News::query();
@@ -68,7 +68,6 @@ class NewsServices{
         $data = $request->data;
         $news = new News();
         $news->fill($data);
-        $news->athor_id = $request->author->id;
         $news->save();
 
         return $news;
@@ -111,4 +110,6 @@ class NewsServices{
         $news->delete();
         return $news;
     }
+
+
 }

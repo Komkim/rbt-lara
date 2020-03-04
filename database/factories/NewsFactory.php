@@ -18,8 +18,6 @@ $factory->define(News::class, function (Faker $faker) {
         'created_at'=>$created,
         'description'=>$description,
         'text'=>$text,
-        'created_at' => $this->created_at,
-        'updated_at' => $this->updated_at
-
+        'created_at' => $created
     ];
 });
