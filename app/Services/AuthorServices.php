@@ -5,6 +5,9 @@ namespace App\Services;
 
 use App\Author;
 use App\News;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 /**
  * Class AuthorServices
@@ -89,5 +92,15 @@ class AuthorServices
         $author = Author::findOrFail($id);
         $author->delete();
         return $author;
+    }
+
+    public function suggest(Request $request)
+    {
+        $query = Author::query();
+        if ($request->filled('query'))
+        {
+            $query->whereRaw('name LIKE ?', ['%'.$request->get('query').'%']);
+        }
+        return $query->get();
     }
 }

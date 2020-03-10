@@ -16,13 +16,15 @@ class NewsResource extends Resource
     {
         return [
             'type' => get_class($this),
-            'data' => [
-                'id' => $this->id,
-                'author_id' => $this->author_id,
-                'title' => $this->title,
-                'description'=>$this->description,
-                'text'=>$this->text
-            ]
+            'id' => $this->id,
+            'author_id' => $this->author_id,
+            'title' => $this->title,
+            'description'=>$this->description,
+            'text'=>$this->text,
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at,
+            'author'=>$this->author
+
         ];
     }
 }

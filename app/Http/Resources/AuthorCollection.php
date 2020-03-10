@@ -14,7 +14,7 @@ class AuthorCollection extends ResourceCollection
     {
         return [
             'type' => get_class($this),
-            'data' => AuthorResource::collection($this->collection)
+            'data' => $this->collection
         ];
     }
 }

@@ -3,7 +3,10 @@
 
 namespace App\Services;
 
+use App\Author;
 use App\News;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 /**
  * Class NewsService
@@ -34,27 +37,38 @@ class NewsService{
      */
     public function filterNews(Request $filters)
     {
-        return News::query();
+        //return News::query();
         $page = $filters->page ?: 1;
-        $limit = $filters->limit ?: 20;
+        $limit = $filters->limit ?: 10;
         $query = News::query();
         $query->with('author');
+
+       // return $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
+
 
         if ($filters->filled('authorId')) {
             $query->where('author_id', $filters->author);
         }
         if($filters->filled('dateFrom')) {
-            $query->where('created_at', '>=', Carbon::createFromTimestampMs($filters->create,'Europe/Moscow')->toDateTimeString());
+
+            $query->where('created_at', '>=', Carbon::createFromTimestampMs($filters->dateFrom,'Europe/Moscow')->toDateTimeString());
         }
         if($filters->filled('dateTo')) {
-            $query->where('created_at', '<=', Carbon::createFromTimestampMs($filters->create,'Europe/Moscow')->toDateTimeString());
+            $query->where('created_at', '<=', Carbon::createFromTimestampMs($filters->dateTo,'Europe/Moscow')->toDateTimeString());
         }
         if($filters->filled('searchString')) {
-            $query->whereRaw('CONCAT(`text`,`desctiption`,`title`) LIKE ?', ['%'.$filters->searchString.'%']);
+            $query->whereRaw('title LIKE ?', ['%'.$filters->searchString.'%']);
+        }
+        if($filters->filled('authorName')) {
+            $auhors = Author::query()->whereRaw('name LIKE ?', ['%'.$filters->authorName.'%']);
+            $query->whereHas('author_id', function($q) use ($auhors){
+                $q->whereIn('id', $auhors);
+            });
         }
         if($filters->filled('offset')) {
             $query->offset($filters->offset);
         }
+        //dd($query->orderBy('id', 'DESC')->paginate($limit, ["*"], 'page', $page));
         return $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
     }
 

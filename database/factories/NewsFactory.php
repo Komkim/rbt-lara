@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(News::class, function (Faker $faker) {
 
-    $title = $faker->title;
+    $title = $faker->text(rand(5,15));
     $text = $faker->realText(rand(10,500));
     $description = mb_strlen($text)>30 ? mb_substr($text, 0, 30) . '...' : $text;
     $created = $faker->dateTimeBetween('-30 days', '-1 days');
@@ -17,7 +17,6 @@ $factory->define(News::class, function (Faker $faker) {
         'author_id'=>rand(1,4),
         'created_at'=>$created,
         'description'=>$description,
-        'text'=>$text,
-        'created_at' => $created
+        'text'=>$text
     ];
 });

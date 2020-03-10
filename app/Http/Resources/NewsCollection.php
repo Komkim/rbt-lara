@@ -28,8 +28,8 @@ class NewsCollection extends ResourceCollection
     {
         return [
             'type' => get_class($this),
-            'data' => NewsResource::collection($this->collection),
-            'meta' => meta
+            'data' => $this->collection,
+            'meta' => $this->meta
         ];
     }
 }

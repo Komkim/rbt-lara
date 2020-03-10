@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', 'NewsController@index');
 
-Route::group(['prefix' => 'news'],function () {
-
+Route::group(['prefix' =>'news'],function () {
     Route::get('/', 'NewsController@index');
     Route::get('/{id}', 'NewsController@show');
     Route::post('/create', 'NewsController@create');
@@ -22,11 +22,12 @@ Route::group(['prefix' => 'news'],function () {
     Route::delete('/{id}', 'NewsController@destroy');
 });
 
-Route::group(['prefix' => 'author'],function () {
+Route::group(['prefix' => 'authors'],function () {
 
     Route::get('/', 'AuthorController@index');
-    Route::get('/{id}', 'AuthorController@show');
+    Route::get('/{id}', 'AuthorController@show')->where('id', '[0-9]+');
     Route::post('/create', 'AuthorController@create');
     Route::put('/{id}', 'AuthorController@update');
     Route::delete('/{id}', 'AuthorController@destroy');
+    Route::get('/suggest','AuthorController@suggest');
 });

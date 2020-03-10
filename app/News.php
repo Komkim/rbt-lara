@@ -10,10 +10,11 @@ class News extends Model
         "author_id",
         "title",
         "description",
-        "text"
+        "text",
+        "created_at"
     ];
 
-    public $timestamps = false;
+    //public $timestamps = false;
     protected $table  = 'news';
 
     public function author()
