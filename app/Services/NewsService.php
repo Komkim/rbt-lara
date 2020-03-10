@@ -60,15 +60,12 @@ class NewsService{
             $query->whereRaw('title LIKE ?', ['%'.$filters->searchString.'%']);
         }
         if($filters->filled('authorName')) {
-            $auhors = Author::query()->whereRaw('name LIKE ?', ['%'.$filters->authorName.'%']);
-            $query->whereHas('author_id', function($q) use ($auhors){
-                $q->whereIn('id', $auhors);
-            });
+            $author = Author::query()->whereRaw('name LIKE ?', ['%'.$filters->authorName.'%']);
+            $query->whereIn('author_id', $author->get('id'));
         }
         if($filters->filled('offset')) {
             $query->offset($filters->offset);
         }
-        //dd($query->orderBy('id', 'DESC')->paginate($limit, ["*"], 'page', $page));
         return $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
     }
 
