@@ -31,7 +31,7 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        return new NewsResource($this->newsService->findNews(id));
+        return new NewsResource($this->newsService->findNews($id));
     }
 
     public function update(Request $request, $id)
