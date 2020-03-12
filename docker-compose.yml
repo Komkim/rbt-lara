@@ -1,11 +1,36 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
 
-  PostgreSQL:
-    restart: always
-    image: postgres
-    ports:
-      - "5433:5432"
+  postgres:
+    image: postgres:11.1-alpine
+    container_name: rbt-front-postgres
+    working_dir: /application
+    volumes:
+      - .:/application
     environment:
       - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=220zxW34mkl252
+      - POSTGRES_PASSWORD=test
       - POSTGRES_DB=test
+    ports:
+      - "5432:5432"
 
+  webserver:
+    image: nginx:alpine
+    container_name: rbt-front-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+
+  php-fpm:
+    build: phpdocker/php-fpm
+    container_name: rbt-front-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
