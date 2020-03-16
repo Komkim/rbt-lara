@@ -43,4 +43,8 @@ class NewsController extends Controller
     {
         return new NewsResource($this->newsService->deleteNews($id));
     }
+    public function count(Request $request)
+    {
+        return $this->newsService->countNews($request);
+    }
 }

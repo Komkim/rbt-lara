@@ -46,8 +46,9 @@ class NewsService{
        // return $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
 
 
+
         if ($filters->filled('authorId')) {
-            $query->where('author_id', $filters->author);
+            $query->where('author_id', $filters->authorId);
         }
         if($filters->filled('dateFrom')) {
 
@@ -66,7 +67,19 @@ class NewsService{
         if($filters->filled('offset')) {
             $query->offset($filters->offset);
         }
-        return $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
+        //dd($query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page));
+        $result = $query->orderBy('id','DESC')->paginate($limit, ["*"],'page',$page);
+        //dd($result->total());
+        return $result;
+    }
+
+    public function countNews(Request $request )
+    {
+
+        return News::where('author_id', '=', $request->authorId)->count();
+//        $query = News::query();
+//        $query->where('author_id', $request->authorId);
+//        return $query->count();
     }
 
     public function createNews(Request $request)

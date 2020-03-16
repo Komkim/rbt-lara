@@ -23,7 +23,7 @@ class NewsResource extends Resource
             'text'=>$this->text,
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
-            'author'=>$this->author
+            'author'=> new AuthorResource($this->author)
 
         ];
     }
