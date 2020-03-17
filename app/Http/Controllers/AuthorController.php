@@ -8,12 +8,6 @@ use App\Services\AuthorServices;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-/**
- * Class AuthorController
- * @mixin Author
- * @package App\Http\Controllers
- */
-
 class AuthorController extends Controller
 {
     private $authorService;

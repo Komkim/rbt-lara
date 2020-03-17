@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class NewsResource extends Resource
 {
-    /**
-     * Class NewsResource
-     * @mixin News
-     * @package App\Http\Resources
-     */
     public function toArray($request)
     {
         return [

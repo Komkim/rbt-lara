@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorResource extends JsonResource
 {
-    /**
-     * Class AuthorResource
-     * @mixin Author
-     * @package App\Http\Resources
-     */
     public function toArray($request)
     {
         return [

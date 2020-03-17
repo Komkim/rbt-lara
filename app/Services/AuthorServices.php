@@ -8,17 +8,8 @@ use App\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
-/**
- * Class AuthorServices
- * @mixin Builder
- * @package App\Services
- */
 class AuthorServices
 {
-    /**
-     * ContractService constructor.
-     */
     public function __construct()
     {
 
@@ -56,19 +47,10 @@ class AuthorServices
         return $author;
     }
 
-    /**
-     * @param $id
-     * @return Author|Author[]|Author|Model
-     */
     public function findAuthor($id) {
         return Author::findOrFail($id);
     }
 
-    /**
-     * @param $id
-     * @param array $data
-     * @return Author|Author[]|Author|Model|null
-     */
     public function updateAuthor(Request $request, $id) {
 
         $validation = $this->validateParams($request);
@@ -83,11 +65,6 @@ class AuthorServices
         return $author;
     }
 
-    /**
-     * @param $id
-     * @return Author|Author[]|Author|Model
-     * @throws Exception
-     */
     public function deleteAuthor($id) {
         $author = Author::findOrFail($id);
         $author->delete();

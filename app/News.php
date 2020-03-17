@@ -21,5 +21,4 @@ class News extends Model
     {
         return $this->hasOne('App\Author', 'id', 'author_id');
     }
-    //
 }
